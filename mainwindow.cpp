@@ -2,7 +2,6 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <memory>
 #include "mainwindow.h"
 #include "muParser.h"
 
