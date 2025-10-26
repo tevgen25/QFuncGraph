@@ -14,7 +14,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent)
     functionInput->setPlaceholderText("Введите функцию, например: sin(x) + x*x");
 
     domainInput = new QLineEdit(this);
-    domainInput->setPlaceholderText("Область определения: x_min x_max, например: -5 5");
+    domainInput->setPlaceholderText("Область определения: x_min;x_max, например: -5;5");
 
     calculateButton = new QPushButton("Рассчитать", this);
     plotButton = new QPushButton("Построить график", this);
@@ -70,9 +70,9 @@ void AppWindow::onCalculateClicked()
         return;
     }
 
-    QStringList parts = domainStr.split(' ', Qt::SkipEmptyParts);
+    QStringList parts = domainStr.split(';', Qt::SkipEmptyParts);
     if (parts.size() != 2) {
-        QMessageBox::warning(this, "Ошибка", "Область должна содержать два числа: x_min x_max");
+        QMessageBox::warning(this, "Ошибка", "Область должна содержать два числа: x_min;x_max");
         return;
     }
 
