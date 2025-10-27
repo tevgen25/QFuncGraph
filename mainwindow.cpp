@@ -39,7 +39,7 @@ AppWindow::AppWindow(QWidget *parent) : QMainWindow(parent)
     QVBoxLayout *inputPanelLayout = new QVBoxLayout(inputPanel);
     inputPanelLayout->addWidget(new QLabel("Функция:"));
     inputPanelLayout->addWidget(functionInput);
-    inputPanelLayout->addWidget(new QLabel("Область определения (x_min x_max):"));
+    inputPanelLayout->addWidget(new QLabel("Область определения [x_min;x_max]:"));
     inputPanelLayout->addWidget(domainInput);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
@@ -120,6 +120,18 @@ void AppWindow::onPlotClicked()
         QVector<double>(yValues.begin(), yValues.end())
     );
     plotWidget->graph(0)->setPen(QPen(Qt::blue, 2));
+
     plotWidget->rescaleAxes();
+
+    QCPRange xRange = plotWidget->xAxis->range();
+    QCPRange yRange = plotWidget->yAxis->range();
+
+    double maxSize = qMax(xRange.size(), yRange.size());
+    double xCenter = xRange.center();
+    double yCenter = yRange.center();
+
+    plotWidget->xAxis->setRange(xCenter - maxSize/2, xCenter + maxSize/2);
+    plotWidget->yAxis->setRange(yCenter - maxSize/2, yCenter + maxSize/2);
+
     plotWidget->replot();
 }
